@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">By_the_Way</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="OK">OK</string>
+    <string name="login_register">注册</string>
+    <string name="login_Appname">By the Way</string>
+    <string name="login_login">登录</string>
+    <string name="login_account">账户</string>
+    <string name="login_pwd">密码</string>
+    <string name="login_forgetpwd">忘记密码</string>
+    <string name="login_cancel">取消</string>
+    <string name="login_student_id">学号</string>
+    <string name="login_phonenumber">电话</string>
+    <string name="login_password">密码</string>
+    <string name="login_ensurePassword">确认</string>
+    <string name="byway_home">主页</string>
+    <string name="name">姓名</string>
+    <string name="msg">信息</string>
+    <string name="type">快递类型</string>
+    <string name="cosmetics">化妆品</string>
+    <string name="shipin">饰品</string>
+    <string name="shoes">鞋</string>
+    <string name="food">零食</string>
+    <string name="address">取件地址</string>
+    <string name="addresss">收件地址</string>
+    <string name="address1">龙人宾馆</string>
+    <string name="address2">随心驿站</string>
+    <string name="address3">华贝数码</string>
+    <string name="address4">爱心报亭</string>
+    <string name="address5">2号楼</string>
+    <string name="address6">3号楼</string>
+    <string name="clothes">服装</string>
+    <string name="fresh">刷新</string>
+    <string name="timeLimit">时间限制</string>
+    <string name="hours">hours</string>
+    <string name="getTask">任务领取</string>
+    <string name="taskRelease">任务发布</string>
+    <string name="pubTask">发布你的任务</string>
+    <string name="unachieve_Task">未完成任务</string>
+    <string name="achieve_Task">已完成任务</string>
+    <string name="myCredit">我的信用积分: </string>
+    <string name="title_activity_new_task">NewTaskActivity</string>
+    <string name="title_activity_chat">ChatActivity</string>
+
+</resources>
