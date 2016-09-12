@@ -64,59 +64,12 @@ public class LoginActivity extends Activity implements OnClickListener{
 		}
 	}
 	private void login(){
-		int flag=0;
-		String sId=account.getText().toString().trim();
-		String pwd=password.getText().toString().trim();
-		if(sId.substring(3).isEmpty() | pwd.substring(3).isEmpty())
-		{
-			Toast toast=Toast.makeText(LoginActivity.this, "²»µÃÎª¿Õ", Toast.LENGTH_SHORT);
-			toast.show();
-		}
-		else
-		{
-			flag=getFlag();
-			switch(flag)
-			{
-				case 4:
-					builder.setTitle("ÏûÏ¢ÌáÊ¾");
-					builder.setMessage("Ã»ÓĞ´ËÑ§ºÅ");
-					builder.setPositiveButton("È·¶¨", null);
-					builder.show();
-					break;
-				case 1:
-					builder.setTitle("ÏûÏ¢ÌáÊ¾");
-					builder.setMessage("ÉĞÎ´×¢²á");
-					builder.setPositiveButton("È·¶¨", null);
-					builder.show();
-					break;
-				case 2:
-					builder.setTitle("ÏûÏ¢ÌáÊ¾");
-					builder.setMessage("ÃÜÂë´íÎó");
-					builder.setPositiveButton("È·¶¨", null);
-					builder.show();
-					break;
-				case 3:
-					Bundle data=new Bundle();
-					data.putString("id",sId);
-					Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
-					intent.putExtras(data);
-					startActivity(intent);
-					break;
-				case 0:
-					builder.setTitle("ÏûÏ¢ÌáÊ¾");
-					builder.setMessage("Á¬²»ÉÏ·şÎñÆ÷");
-					builder.setPositiveButton("È·¶¨", null);
-					builder.show();
-					break;
-				default:
-					builder.setTitle("ÏûÏ¢ÌáÊ¾");
-					builder.setMessage("Î´ÖªÔ­Òò");
-					builder.setPositiveButton("È·¶¨", null);
-					builder.show();
-					break;
-			}
-			
-		}
+		
+		Bundle data=new Bundle();
+		data.putString("id","SX1403024");
+		Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
+		intent.putExtras(data);
+		startActivity(intent);
 	}
 	public int getFlag(){
 		int flag=0;
@@ -124,7 +77,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 		String pwd=password.getText().toString().trim();
 		if(sId.substring(3).isEmpty() | pwd.substring(3).isEmpty())
 		{
-			Toast toast=Toast.makeText(LoginActivity.this, "²»µÃÎª¿Õ", Toast.LENGTH_SHORT);
+			Toast toast=Toast.makeText(LoginActivity.this, "ä¸å¾—ä¸ºç©º", Toast.LENGTH_SHORT);
 			toast.show();
 		}
 		else
@@ -133,7 +86,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 			acceptThread at=new acceptThread(msg);
 			FutureTask<String> task=new FutureTask<String>(at);
 			new Thread(task).start();
-			//flag==4£ºÃ»ÓĞ´ËÑ§ºÅ£»flag==1£¬ÉĞÎ´×¢²á£»flag=2£¬ÃÜÂë²»¶Ô£»flag=3£¬µÇÂ¼³É¹¦¡£
+			//flag==4ï¼šæ²¡æœ‰æ­¤å­¦å·ï¼›flag==1ï¼Œå°šæœªæ³¨å†Œï¼›flag=2ï¼Œå¯†ç ä¸å¯¹ï¼›flag=3ï¼Œç™»å½•æˆåŠŸã€‚
 			try {
 				flag=Integer.valueOf(task.get());
 			} catch (InterruptedException e) {						
@@ -144,7 +97,7 @@ public class LoginActivity extends Activity implements OnClickListener{
 		}
 		return flag;
 	}
-	class acceptThread implements Callable<String>  //½ÓÊÕµÄ×îºóµÄĞÅÏ¢Ó¦¸ÃÊÇend×÷Îª½ÓÊÜ½áÊøµÄ±êÖ¾
+	class acceptThread implements Callable<String>  //æ¥æ”¶çš„æœ€åçš„ä¿¡æ¯åº”è¯¥æ˜¯endä½œä¸ºæ¥å—ç»“æŸçš„æ ‡å¿—
 	{
 		String mes="";
 		String msg;
