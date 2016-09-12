@@ -34,9 +34,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 
-public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener{
+public class HomeActivity_temp extends Activity {
 	
-	private SwipeRefreshLayout mSwipeLayout;
+	
 	private ListView first_list;
 	private ListView second_list;
 	private ListView third_list;
@@ -47,7 +47,7 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
 		setContentView(R.layout.activity_home);
 		Intent intent=getIntent();
 		Bundle data=intent.getExtras();
-		sId=(String)data.getString("id");//ÓÃ»§µÄ±êÊ¶
+		sId=(String)data.getString("id");//ç”¨æˆ·çš„æ ‡è¯†
 		first_list=(ListView)findViewById(R.id.first_list);
 		second_list=(ListView)findViewById(R.id.home_contact);
 		third_list=(ListView)findViewById(R.id.third_task);
@@ -59,68 +59,68 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
 	private void tabInit(){
 		TabHost th=(TabHost)findViewById(R.id.tabhost); 
         th.setup();
-        th.addTab(th.newTabSpec("tab1").setIndicator("ÈÎÎñ´óÌü",getResources().getDrawable(R.drawable.ic_launcher)).setContent(R.id.tab1));  
-        th.addTab(th.newTabSpec("tab2").setIndicator("ÁªÏµÈË",null).setContent(R.id.tab2));  
-        th.addTab(th.newTabSpec("tab3").setIndicator("ÈÎÎñÏêÇé",null).setContent(R.id.tab3));
+        th.addTab(th.newTabSpec("tab1").setIndicator("ä»»åŠ¡å¤§å…",getResources().getDrawable(R.drawable.ic_launcher)).setContent(R.id.tab1));  
+        th.addTab(th.newTabSpec("tab2").setIndicator("è”ç³»äºº",null).setContent(R.id.tab2));  
+        th.addTab(th.newTabSpec("tab3").setIndicator("ä»»åŠ¡è¯¦æƒ…",null).setContent(R.id.tab3));
 	}
 	@SuppressWarnings("deprecation")
 	private void firstPage(){
 		Button pubTask=(Button)findViewById(R.id.pubTask);
 		pubTask.setOnClickListener(new OnClickListener(){
 			public void onClick(View v){
-				Intent intent=new Intent(HomeActivity.this,NewTaskActivity.class);
+				Intent intent=new Intent(HomeActivity_temp.this,NewTaskActivity.class);
 				startActivity(intent);	
 			}
 		});
-		SimpleAdapter adapter=new SimpleAdapter(this,getData("courier_firstPage"+sId),R.layout.task_adapter,
+		SimpleAdapter adapter=new SimpleAdapter(this,getData1(),R.layout.task_adapter,
 				new String[]{"address","time","img","task_id"},new int[]{R.id.first_address,R.id.first_time,R.id.first_img,R.id.first_task_id});
 		first_list.setAdapter(adapter);
 		first_list.setOnItemClickListener(new first_ItemClickListener());
 		
-		mSwipeLayout=(SwipeRefreshLayout)findViewById(R.id.swipeFresh);
-		mSwipeLayout.setOnRefreshListener(this); 
-		mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
-                android.R.color.holo_orange_light, android.R.color.holo_red_light);
+		
 	}
 	private void secondPage(){
-		SimpleAdapter adapter=new SimpleAdapter(this,getData("student23_contacterQuery"+sId),R.layout.contact_adapter,
+		SimpleAdapter adapter=new SimpleAdapter(this,getData2(),R.layout.contact_adapter,
 				new String[]{"contacter","credit_score"},new int[]{R.id.contacter,R.id.contacter_credit});
 		second_list.setAdapter(adapter);
 		second_list.setOnItemClickListener(new second_ItemClickListener());
 	}
 	private void thirdPage(){
-		SimpleAdapter adapter=new SimpleAdapter(this,getData("courier_thirdPage"+sId),R.layout.task_adapter,
+		SimpleAdapter adapter=new SimpleAdapter(this,getData1(),R.layout.task_adapter,
 				new String[]{"address","time","img","task_id"},new int[]{R.id.first_address,R.id.first_time,R.id.first_img,R.id.first_task_id});
 		third_list.setAdapter(adapter);
 		third_list.setOnItemClickListener(new third_ItemClickListener());
 	}
-	private List<Map<String, Object>> getData(String page){
+	private List<Map<String, Object>> getData1(){
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> map;
-		String[][] slist=getFreshData(page);
-		for(int i=0;i<slist.length;i++){
+		String[] address=new String[]{"éšå¿ƒé©¿ç«™","åè´æ•°ç ","é¾™äººå®¾é¦†","çˆ±å¿ƒæŠ¥äº­"};
+		String[] time=new String[]{"2016/5/19/19:04+2 hours","2016/5/19/19:33+4 hours","2016/5/20/9:12+8 hours","2016/5/20/10:31+2 hours"};
+		String[] task_id=new String[]{"missionID: 1","missionID: 2","missionID: 3","missionID: 4"};
+		int[] draw=new int[]{R.drawable.clothes, R.drawable.food, R.drawable.shoes,R.drawable.accessory};
+		for(int i=0;i<4;i++){
 			map = new HashMap<String, Object>();
-			//ÈôÊÇstudent23ºÍcourierÔö¼Ó»ò¼õÉÙÁË×Ö¶Î£¬Òª¸Ä±äÕâÀïµÄiÖµ.
-			//firstPage
-			if(page.startsWith("courier_")){
-			map.put("address",stringTransfer(slist[i][1]));
-			map.put("time",slist[i][4]+"+"+slist[i][5]+" hours");
-			map.put("img", transferImg(slist[i][0]));
-			map.put("task_id","missionID: "+slist[i][7]);
+			map.put("address",address[i]);
+			map.put("time",time[i]);
+			map.put("img", draw[i]);
+			map.put("task_id",task_id[i]);
 			list.add(map);
-			}else if(page.startsWith("student23_")){
-			//secondPage
-			map.put("credit_score","missionID: "+slist[i][1]);
-			map.put("contacter", slist[i][0]);
-			list.add(map);
-			}
-			else{
-				map.put(null, null);
-				list.add(map);
-				return list;
-			}
 		}
 		return list;
+	}
+	private List<Map<String, Object>> getData2(){
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map;
+		String[] contacter=new String[]{"SX1403013", "SX1504145", "SX130127"};
+		String[] credit_score=new String[]{"3", "4", "5"};
+		for(int i=0;i<3;i++){
+			map = new HashMap<String, Object>();
+			map.put("contacter",contacter[i]);
+			map.put("credit_score",credit_score[i]);
+			list.add(map);
+		}
+		return list;
+		
 	}
 	private String[][] getFreshData(String mes){
 		acceptThread at=new acceptThread(mes);
@@ -133,7 +133,7 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
 		try {
 			msg=task.get();
 			ja=new JSONArray(msg);
-			//¶şÎ¬Êı×éÁ½¸ö³¤¶È¶¼±ØĞë³õÊ¼»¯
+			//äºŒç»´æ•°ç»„ä¸¤ä¸ªé•¿åº¦éƒ½å¿…é¡»åˆå§‹åŒ–
 			slist=new String[ja.length()][];
 			for(int i=0;i<ja.length();i++){
 				jaTemp=new JSONArray(ja.getString(i));
@@ -151,7 +151,7 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
 		}
 		return slist;
 	}
-	class acceptThread implements Callable<String>  //½ÓÊÕµÄ×îºóµÄĞÅÏ¢Ó¦¸ÃÊÇend×÷Îª½ÓÊÜ½áÊøµÄ±êÖ¾
+	class acceptThread implements Callable<String>  //æ¥æ”¶çš„æœ€åçš„ä¿¡æ¯åº”è¯¥æ˜¯endä½œä¸ºæ¥å—ç»“æŸçš„æ ‡å¿—
 	{
 		String mes="";
 		String msg;
@@ -211,17 +211,17 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
 	}
 	public String stringTransfer(String str){
 		HashMap<String,String> hp=new HashMap<String,String>();
-		hp.put("·ş×°","clothes");
-		hp.put("»¯×±Æ·", "cosmetics");
-		hp.put("ÊÎÆ·","accessory");
-		hp.put("Ğ¬","shoes");
-		hp.put("Ê³Îï", "food");
-		hp.put("ÁúÈË±ö¹İ","longrenbinguan");
-		hp.put("ËæĞÄæäÕ¾","suixinyizhan");
-		hp.put("»ª±´ÊıÂë","huabeishuma");
-		hp.put("°®ĞÄ±¨Í¤","aixinbaoting");
-		hp.put("2ºÅÂ¥", "2#");
-		hp.put("3ºÅÂ¥","3#");
+		hp.put("æœè£…","clothes");
+		hp.put("åŒ–å¦†å“", "cosmetics");
+		hp.put("é¥°å“","accessory");
+		hp.put("é‹","shoes");
+		hp.put("é£Ÿç‰©", "food");
+		hp.put("é¾™äººå®¾é¦†","longrenbinguan");
+		hp.put("éšå¿ƒé©¿ç«™","suixinyizhan");
+		hp.put("åè´æ•°ç ","huabeishuma");
+		hp.put("çˆ±å¿ƒæŠ¥äº­","aixinbaoting");
+		hp.put("2å·æ¥¼", "2#");
+		hp.put("3å·æ¥¼","3#");
 		HashMap<String,String> hp1=new HashMap<String,String>();
 		for(String key: hp.keySet()){
 			hp1.put(hp.get(key),key);
@@ -242,22 +242,11 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
 	}
 	private void makeAlertDialog_OkCancel(final String taskId){
 		final Builder builder=new AlertDialog.Builder(this);
-		final printThread pt=new printThread("updateGetRen"+sId+taskId);
-		builder.setTitle("ÈÎÎñÈ·¶¨");
-		builder.setMessage("ÄãÈ·¶¨ÒªÁìÈ¡¸ÃÈÎÎñÂğ");
-		builder.setPositiveButton("È·¶¨",new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				pt.start();
-				try {
-					pt.join();
-					//thirdPage();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-		builder.setNegativeButton("È¡Ïû", null);
+		//final printThread pt=new printThread("updateGetRen"+sId+taskId);
+		builder.setTitle("ä»»åŠ¡ç¡®å®š");
+		builder.setMessage("ä½ ç¡®å®šè¦é¢†å–è¯¥ä»»åŠ¡å—");
+		builder.setPositiveButton("ç¡®å®š",null);
+		builder.setNegativeButton("å–æ¶ˆ", null);
 		builder.show();
 	}
 	
@@ -281,7 +270,7 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
 			String contacter=data.get("contacter").toString();
 			Bundle data1=new Bundle();
 			data1.putString("contacter",contacter);
-			Intent intent=new Intent(HomeActivity.this,ChatActivity.class);
+			Intent intent=new Intent(HomeActivity_temp.this,ChatActivity.class);
 			intent.putExtras(data1);
 			startActivity(intent);
 			
@@ -299,9 +288,9 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
 	}
 	private void makeAlertDialog_UndoAchieveCancle(String taskId){
 		Builder builder=new AlertDialog.Builder(this);
-		builder.setTitle("Íê³É");
-		String[] items=new String[]{"³·Ïú","Íê³É","È¡Ïû"};
-		builder.setItems(items,new third_OnClickListener(taskId));
+		builder.setTitle("å®Œæˆ");
+		String[] items=new String[]{"æ’¤é”€","å®Œæˆ","å–æ¶ˆ"};
+		//builder.setItems(items,new third_OnClickListener(taskId));
 		builder.create().show();
 	}
 	class third_OnClickListener implements DialogInterface.OnClickListener{
@@ -311,7 +300,7 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
 		}
 		@Override
 		public void onClick(DialogInterface dialog, int whitch) {
-			//³·Ïú¡¢Íê³É¡¢È¡Ïû
+			//æ’¤é”€ã€å®Œæˆã€å–æ¶ˆ
 			switch(whitch){
 			case 0:{
 				printThread pt=new printThread("courier_UndoTask"+sId+taskId);
@@ -330,13 +319,7 @@ public class HomeActivity extends Activity implements SwipeRefreshLayout.OnRefre
 		}
 		
 	}
-	@Override
-	public void onRefresh() {
-		// TODO Auto-generated method stub
-		firstPage();
-		//thirdPage();
-		mSwipeLayout.setRefreshing(false);
-	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
